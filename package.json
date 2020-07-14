@@ -4,7 +4,9 @@
   "description": "Automated testing with Puppeteer",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha --timeout=30000 --require mocha-steps ./build/tests/**.js",
+    "clean": "rm -rf build",
+    "build": "babel --preset es2015 -d build/ src/"
   },
   "keywords": [
     "Puppeteer"
@@ -12,11 +14,14 @@
   "author": "Honza Kubiš",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.2.0",
     "mocha": "^8.0.1",
     "mocha-steps": "^1.3.0",
     "puppeteer": "^5.1.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "prettier": "^2.0.5"
   }
 }
