@@ -1,15 +1,52 @@
 import { expect } from 'chai'
+import Launcher from '../launcher'
 
-describe('Test', () => {
-	step('TEST A', () => {
-		expect(2).to.equal(2)
+describe('Calculator Test', () => {
+	let page
+
+	before(async function () {
+		page = await Launcher.build('Desktop')
 	})
 
-	step('TEST B', () => {
-		expect(2).to.equal(5)
+	after(async function () {
+		await page.close()
 	})
 
-	step('TEST C', () => {
-		expect(2).to.equal(2)
+	step('should load calculator website', async function () {
+		await page.goto('https://furbo.sk/playground/kalkulacka.php')
+		await page.waitForText('h1', 'Kalkulačka')
+	})
+
+	step('should add numbers', async function () {
+		await page.waitForSelector('#firstInput')
+		await page.type('#firstInput', '10')
+
+		await page.waitForSelector('#secondInput')
+		await page.type('#secondInput', '10')
+
+		await page.waitForSelector('#count')
+		await page.click('#count')
+
+		let result = await page.getText('#result')
+		expect(result).to.equal('20')
+	})
+
+	step('should deduct numbers', async function () {
+		await page.reload()
+		await page.waitForSelector('#firstInput')
+		await page.type('#firstInput', '10')
+
+		await page.waitForSelector('#secondInput')
+		await page.type('#secondInput', '10')
+
+		await page.waitForSelector('#count')
+		await page.click('#deduct')
+
+		let result = await page.getText('#result')
+		expect(result).to.equal('0')
+	})
+
+	step('should reset calculator', async function () {
+		// TODO
 	})
 })
