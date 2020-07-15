@@ -22,7 +22,7 @@ export default class CalculatorPage extends BasePage {
   }
 
   async deductNumbers() {
-    await this.page.waitForSelector('#count')
+    await this.page.waitForSelector('#deduct')
     await this.page.click('#deduct')
   }
 
